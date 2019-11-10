@@ -1,24 +1,25 @@
 /*
-	Name: Cheng, Chris Aaron L.
+	Name	: Cheng, Chris Aaron L.
 	Terminal: 24
-	Section: S11
+	Section	: S11B
 */
 
 #include <stdio.h>
 //#include <windows.h>
 #include <stdlib.h>
 
-int isValid(int nInput, int nStart, int nEnd) {
-	if (nInput >= nStart && nInput <= nEnd) {
-		return 1;
-	} else {
-		return 0;
+void getInputAndCheck(int *nChoice, int nStart, int nEnd) {
+	int nValid = 0;
+
+	while (!nValid) {
+		scanf("%d", nChoice);
+
+		if (*nChoice >= nStart && *nChoice <= nEnd) {
+			nValid = 1;
+		} else {
+			printf("Try Again: ");
+		}
 	}
-}
-
-int menu(int *nInput) {
-
-
 }
 
 int main() {
