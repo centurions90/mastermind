@@ -5,8 +5,8 @@
 */
 
 #include <stdio.h>
-//#include <windows.h>
 #include <stdlib.h>
+//#include <windows.h>
 
 void getInputAndCheck(int *nChoice, int nStart, int nEnd) {
 	int nValid = 0;
@@ -23,7 +23,9 @@ void getInputAndCheck(int *nChoice, int nStart, int nEnd) {
 }
 
 int main() {
-
+	int nChoice;
+	int nGuesses	= 10;
+	int nPlayers	= 2;
 
 	return 0;
 }
