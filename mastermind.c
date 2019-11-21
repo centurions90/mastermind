@@ -6,9 +6,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 //#include <windows.h>
 
-#define MENU 		0
+#define MAIN 		0
 #define GAME 		1
 #define SETTINGS	2
 #define EXIT		3
@@ -27,7 +28,7 @@ void getInputAndCheck(int *nChoice, int nStart, int nEnd) {
 	}
 }
 
-void displayMenu() {
+void displayMain() {
 
 }
 
@@ -35,39 +36,64 @@ void displaySettings() {
 
 }
 
+int checkGuess(int nCode, int nGuess, int* nMatch, int* nCorrect) {
+
+}
+
+int initialize() {
+	srand(time(0));
+}
+
 int main() {
 	int nChoice;
 	int nGuesses	= 10;
 	int nPlayers	= 2;
-	int nExit		= 0;
-	int nLevel		= 0;
+	int nMenu		= 0;
+	int nColor		= 0;
 
-	while (!nExit) {
-		if (nLevel == MENU) {
-			displayMenu();
+	while (nMenu != EXIT) {
+		if (nMenu == MAIN) {
+			displayMain();
 			getInputandCheck(&nChoice, 1, 3);
 
-			nLevel = nChoice;
-		} else if (nLevel == GAME) {
+			nMenu = nChoice;
+		}
 
-		} else if (nLevel == SETTINGS) {
+		else if (nMenu == GAME) {
+
+		}
+
+		else if (nMenu == SETTINGS) {
 			displaySettings();
-			getInputandCheck(&nChoice, 1, 4);
+			getInputandCheck(&nChoice, 1, 5);
 
-			nLevel = (nChoice + 3) % 7;
-		} else if (nLevel == EXIT) {
-			nExit = 1;
-		} else if (nLevel == 4) {
+			nMenu = (nChoice + 3) % 8;
+		}
+
+		else if (nMenu == 4) {
 			printf("Change number of guesses to: ");
 			scanf("%d", &nGuesses);
-			nLevel == SETTINGS;
-		} else if (nLevel == 5) {
+			nMenu = SETTINGS;
+		}
+
+		else if (nMenu == 5) {
 			printf("Change number of players to: ");
 			scanf("%d", &nPlayers);
-			nLevel == SETTINGS;	
-		} else if (nLevel == 6) {
-			printf("todo");
-			nLevel == SETTINGS;
+			nMenu = SETTINGS;
+		}
+
+		else if (nMenu == 6) {
+			nColor = !nColor;
+			nMenu = SETTINGS;
+		}
+
+		else if (nMenu == 7) {
+			if (nColor) {
+
+			} else {
+				printf("Please turn on color mode first");
+			}
+			nMenu = SETTINGS;
 		}
 	}
 
