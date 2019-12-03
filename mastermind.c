@@ -13,34 +13,43 @@
 #define SETTINGS	2
 #define EXIT		3
 
-void getInputAndCheck(int *nChoice, int nStart, int nEnd) {
-	int nValid = 0;
+// stores choice and returns true if choice is in range
+int getInputInRange(int *nChoice, int nStart, int nEnd) {
+	scanf("%d", nChoice);
 
-	while (!nValid) {
-		scanf("%d", nChoice);
-
-		if (*nChoice >= nStart && *nChoice <= nEnd) {
-			nValid = 1;
-		} else {
-			printf("Try Again: ");
-		}
+	if (*nChoice >= nStart && *nChoice <= nEnd) {
+		return 1;
+	} else {
+		return 0;
 	}
 }
 
+// clears terminal screen
+void clrscr() {
+	system("cls || clear");
+}
+
+// displays graphical interface of main menu
 void displayMain() {
 
 }
 
+// displays graphical interface of settings
 void displaySettings() {
 
 }
 
-int checkGuess(int nCode, int nGuess, int* nMatch, int* nCorrect) {
+// initialize random number generator
+void initialize() {
+	srand(time(0));
+}
+
+int checkExactMatches(int nCode, int nGuess, int* nMatch, int* nCorrect) {
 
 }
 
-int initialize() {
-	srand(time(0));
+int checkCorrectDigits() {
+
 }
 
 int main() {
@@ -51,34 +60,55 @@ int main() {
 	int nColor		= 0;
 
 	while (nMenu != EXIT) {
+		// main menu
 		if (nMenu == MAIN) {
 			displayMain();
-			getInputandCheck(&nChoice, 1, 3);
+			while (!getInputInRange(&nChoice, 1, 3)) {
+				clrscr();
+				displayMain();
+				printf("Input Invalid. Try Again:\n");
+			}
 
+			clrscr();
 			nMenu = nChoice;
 		}
 
+		// game
 		else if (nMenu == GAME) {
 
 		}
 
+		// settings
 		else if (nMenu == SETTINGS) {
 			displaySettings();
-			getInputandCheck(&nChoice, 1, 5);
+			while (getInputInRange(&nChoice, 1, 5)) {
+				clrscr();
+				displaySettings();
+				printf("Input Invalid. Try Again:\n");
+			}
 
+			clrscr();
 			nMenu = (nChoice + 3) % 8;
 		}
 
 		else if (nMenu == 4) {
-			printf("Change number of guesses to: ");
-			scanf("%d", &nGuesses);
-			nMenu = SETTINGS;
+			do {
+				printf("Change number of guesses to: ");
+				scanf("%d", &nGuesses);
+				printf("Invalid Input. Try Again.\n");
+				nMenu = SETTINGS;
+			} while (nGuesses <= 0);
+			clrscr();
 		}
 
 		else if (nMenu == 5) {
-			printf("Change number of players to: ");
-			scanf("%d", &nPlayers);
-			nMenu = SETTINGS;
+			do {
+				printf("Change number of players to: ");
+				scanf("%d", &nPlayers);
+				printf("Invalid Input. Try Again.\n");
+				nMenu = SETTINGS;
+			} while (nPlayers <= 0);
+			clrscr();
 		}
 
 		else if (nMenu == 6) {
