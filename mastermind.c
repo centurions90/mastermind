@@ -57,7 +57,6 @@ int main() {
 	int nGuesses	= 10;
 	int nPlayers	= 2;
 	int nMenu		= 0;
-	int nColor		= 0;
 
 	while (nMenu != EXIT) {
 		// main menu
@@ -81,14 +80,14 @@ int main() {
 		// settings
 		else if (nMenu == SETTINGS) {
 			displaySettings();
-			while (getInputInRange(&nChoice, 1, 5)) {
+			while (getInputInRange(&nChoice, 1, 4)) {
 				clrscr();
 				displaySettings();
 				printf("Input Invalid. Try Again:\n");
 			}
 
 			clrscr();
-			nMenu = (nChoice + 3) % 8;
+			nMenu = (nChoice + 3) % 7;
 		}
 
 		else if (nMenu == 4) {
@@ -112,17 +111,8 @@ int main() {
 		}
 
 		else if (nMenu == 6) {
-			nColor = !nColor;
 			nMenu = SETTINGS;
-		}
-
-		else if (nMenu == 7) {
-			if (nColor) {
-
-			} else {
-				printf("Please turn on color mode first");
-			}
-			nMenu = SETTINGS;
+			clrscr();
 		}
 	}
 
