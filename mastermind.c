@@ -267,7 +267,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -282,7 +282,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -297,7 +297,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -312,7 +312,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -327,7 +327,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -342,7 +342,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -357,7 +357,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -372,7 +372,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
@@ -387,7 +387,7 @@ int main() {
 			SetConsoleTextAttribute(hConsole, saved_attributes);
 			printf(": ");
 			while (
-				!getInputInRange(&nChoice, 1, 9) &&
+				!getInputInRange(&nChoice, 1, 9) ||
 				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
 			) {
 				printf("Invalid Input. Try Again: ");
