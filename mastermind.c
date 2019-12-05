@@ -43,12 +43,19 @@ void clrscr() {
 }
 
 int generateRandomCode() {
-	int number = rand() % 10000;
+	int nNumber = 0;
+	int nTemp;
 	int j;
 
 	for (j = 0; j < 4; j++) {
-
+		nTemp = rand() % 10;
+		while (nTemp == 0) {
+			nTemp = rand() % 10;
+		}
+		nNumber += nTemp * pow(10, j);
 	}
+
+	return nNumber;
 }
 
 // displays graphical interface of main menu
@@ -79,6 +86,7 @@ void displaySettings(HANDLE hConsole, WORD saved_attributes) {
 	printf("Enter number here: ");
 }
 
+// displays graphical interface of game
 void displayGame() {
 
 }
