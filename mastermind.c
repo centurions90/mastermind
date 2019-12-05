@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include <windows.h>
 
 #define MAIN 		0
@@ -14,15 +15,15 @@
 #define SETTINGS	2
 #define EXIT		3
 
-#define RED		BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY
-#define GREEN	BACKGROUND_GREEN
-#define BLUE	BACKGROUND_BLUE
-#define YELLOW	BACKGROUND_RED | BACKGROUND_GREEN
-#define CYAN	BACKGROUND_GREEN | BACKGROUND_BLUE
-#define MAGENTA BACKGROUND_RED | BACKGROUND_BLUE
-#define BRED	BACKGROUND_RED | BACKGROUND_INTENSITY
-#define BGREEN	BACKGROUND_GREEN | BACKGROUND_INTENSITY
-#define BBLUE	BACKGROUND_BLUE | BACKGROUND_INTENSITY
+#define RED		BACKGROUND_RED | BACKGROUND_INTENSITY
+#define GREEN	BACKGROUND_GREEN | BACKGROUND_INTENSITY
+#define BLUE	BACKGROUND_BLUE | BACKGROUND_INTENSITY
+#define YELLOW	BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY
+#define CYAN	BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY
+#define MAGENTA BACKGROUND_RED | BACKGROUND_BLUE | BACKGROUND_INTENSITY
+#define DRED	BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY
+#define DGREEN	BACKGROUND_GREEN
+#define DBLUE	BACKGROUND_BLUE
 #define WHITE	BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE
 
 // stores choice and returns true if choice is in range
@@ -43,11 +44,16 @@ void clrscr() {
 
 int generateRandomCode() {
 	int number = rand() % 10000;
+	int j;
+
+	for (j = 0; j < 4; j++) {
+
+	}
 }
 
 // displays graphical interface of main menu
 void displayMain(HANDLE hConsole, WORD saved_attributes) {
-	SetConsoleTextAttribute(hConsole, RED);
+	SetConsoleTextAttribute(hConsole, DRED);
 	printf("XX XX  XX   XXX XXXX XXXX XXX  XX XX XXXX X  X XXX \n");
 	printf("XX XX X  X X     XX  Xxx  X  X XX XX  XX  XX X X  X\n");
 	printf("X X X XXXX   XX  XX  X    XXX  X X X  XX  X XX X  X\n");
@@ -62,7 +68,7 @@ void displayMain(HANDLE hConsole, WORD saved_attributes) {
 
 // displays graphical interface of settings
 void displaySettings(HANDLE hConsole, WORD saved_attributes) {
-	SetConsoleTextAttribute(hConsole, RED);
+	SetConsoleTextAttribute(hConsole, DRED);
 	printf("Settings\n\n");
 
 	SetConsoleTextAttribute(hConsole, saved_attributes);
@@ -178,8 +184,9 @@ int main() {
 	int nGuesses	= 10;
 	int nPlayers	= 2;
 	int nMenu		= 0;
-	int nMatch;
-	int nCorrect;
+	int nMatch		= 0;
+	int nCorrect	= 0;
+	long int nAmount= 0;
 
 	int nColor1 = RED;
 	int nColor2 = GREEN;
@@ -187,9 +194,9 @@ int main() {
 	int nColor4 = YELLOW;
 	int nColor5 = CYAN;
 	int nColor6 = MAGENTA;
-	int nColor7 = BRED;
-	int nColor8 = BGREEN;
-	int nColor9 = BBLUE;
+	int nColor7 = DRED;
+	int nColor8 = DGREEN;
+	int nColor9 = DBLUE;
 
 	constructor();
 
@@ -253,7 +260,144 @@ int main() {
 		}
 
 		else if (nMenu == 6) {
-			nMenu = SETTINGS;
+			// red
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, RED);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, RED, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// green
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, GREEN);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, GREEN, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// blue
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, BLUE);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, BLUE, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// yellow
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, YELLOW);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, YELLOW, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// cyan
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, CYAN);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, CYAN, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// magenta
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, MAGENTA);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, MAGENTA, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// bright red
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, DRED);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, DRED, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// bright green
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, DGREEN);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, DGREEN, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			// bright blue
+			printf("Assign number for ");
+			SetConsoleTextAttribute(hConsole, DBLUE);
+			printf(" ");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(": ");
+			while (
+				!getInputInRange(&nChoice, 1, 9) &&
+				nAmount / (int)pow(10, nChoice - 1) % 10 != 0
+			) {
+				printf("Invalid Input. Try Again: ");
+			}
+			nAmount += pow(10, nChoice - 1);
+			assignColor(nChoice, DBLUE, &nColor1, &nColor2, &nColor3, &nColor4, &nColor5, &nColor6, &nColor7, &nColor8, &nColor9);
+
+			nMenu	= SETTINGS;
+			nAmount = 0;
+			clrscr();
 		}
 	}
 
