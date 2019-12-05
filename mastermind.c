@@ -214,7 +214,7 @@ int main() {
 			while (!getInputInRange(&nChoice, 1, 3)) {
 				clrscr();
 				displayMain(hConsole, saved_attributes);
-				printf("Input Invalid. Try Again:\n");
+				printf("\nInput Invalid. Try Again: ");
 			}
 
 			clrscr();
@@ -232,7 +232,7 @@ int main() {
 			while (!getInputInRange(&nChoice, 1, 4)) {
 				clrscr();
 				displaySettings(hConsole, saved_attributes);
-				printf("Input Invalid. Try Again:\n");
+				printf("\nInput Invalid. Try Again: ");
 			}
 
 			clrscr();
