@@ -258,7 +258,7 @@ void showColors(
 			nColor8,
 			nColor9
 		));
-		printf("j");
+		printf("%d", j);
 		SetConsoleTextAttribute(hConsole, saved_attributes);
 		printf(" ");
 	}
