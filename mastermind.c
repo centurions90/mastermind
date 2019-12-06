@@ -98,12 +98,14 @@ void displaySettings(HANDLE hConsole, WORD saved_attributes) {
 	printf("Enter number here: ");
 }
 
+// sets up console colors and random seed
 void constructor() {
 	srand(time(0));
 	system("color 8f");
 	clrscr();
 }
 
+// reverts console back to normal
 void destructor() {
 	system("color 07");
 	clrscr();
@@ -153,6 +155,7 @@ int checkCorrectDigits(int nCode, int nGuess) {
 	return nMatches;
 }
 
+// assigns color to a digit
 void assignColor(
 	int num,
 	int nColor,
@@ -230,6 +233,7 @@ int getColor(
 	}
 }
 
+// shows all the assigned colors
 void showColors(
 	HANDLE hConsole,
 	WORD saved_attributes,
@@ -266,6 +270,7 @@ void showColors(
 	printf("\n");
 }
 
+// converts numbers to the defined colors
 void convertToColors(
 	int nNum,
 	HANDLE hConsole,
