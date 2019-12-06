@@ -103,11 +103,46 @@ void destructor() {
 }
 
 int checkExactMatches(int nCode, int nGuess) {
+	int nMatches = 0;
 
+	while (nCode != 0 && nGuess != 0) {
+		if (nCode % 10 == nGuess % 10) {
+			nMatches++;
+		}
+		nCode	/= 10;
+		nGuess	/= 10;
+	}
+
+	return nMatches;
 }
 
 int checkCorrectDigits(int nCode, int nGuess) {
+	int nMatches	= 0;
+	int nTemp		= nCode;
+	int j			= 1;
+	int k			= 1;
+	int nMatched	= 0;
 
+	while (nGuess != 0) {
+		while (nCode / j != 0 && !nMatched) {
+			if (j != k) {
+				if (nGuess % 10 == nTemp / j % 10) {
+					nMatches++;
+					nMatched = 1;
+					nTemp	-= nTemp / j % 10 * j;
+				}
+			}
+
+			j *= 10;
+		}
+
+		k		*= 10;
+		j		 = 1;
+		nGuess	/= 10;
+		nMatched = 0;
+	}
+
+	return nMatches;
 }
 
 void assignColor(
@@ -195,6 +230,7 @@ int main() {
 	int nMatch		= 0;
 	int nCorrect	= 0;
 	long int nAmount= 0;
+	int j;
 
 	int nColor1 = RED;
 	int nColor2 = GREEN;
