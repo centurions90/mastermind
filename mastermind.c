@@ -338,6 +338,7 @@ int main() {
 
 	constructor();
 
+	// used to control console colors
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
     WORD saved_attributes;
