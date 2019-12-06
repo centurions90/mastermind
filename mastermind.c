@@ -58,6 +58,18 @@ int generateRandomCode() {
 	return nNumber;
 }
 
+int hasZeros(int nNum) {
+	while (nNum != 0) {
+		if (nNum % 10 == 0) {
+			return 1;
+		} else {
+			nNum /= 10;
+		}
+	}
+
+	return 0;
+}
+
 // displays graphical interface of main menu
 void displayMain(HANDLE hConsole, WORD saved_attributes) {
 	SetConsoleTextAttribute(hConsole, DRED);
@@ -84,11 +96,6 @@ void displaySettings(HANDLE hConsole, WORD saved_attributes) {
 	printf("\t3 - Change assigned colors\n");
 	printf("\t4 - Back\n\n");
 	printf("Enter number here: ");
-}
-
-// displays graphical interface of game
-void displayGame() {
-
 }
 
 void constructor() {
@@ -118,15 +125,16 @@ int checkExactMatches(int nCode, int nGuess) {
 
 int checkCorrectDigits(int nCode, int nGuess) {
 	int nMatches	= 0;
-	int nTemp		= nCode;
+	int nTemp		= nGuess;
+	int nTempCode	= nCode;
 	int j			= 1;
 	int k			= 1;
 	int nMatched	= 0;
 
-	while (nGuess != 0) {
-		while (nCode / j != 0 && !nMatched) {
+	while (nCode != 0) {
+		while (nGuess / j != 0 && !nMatched) {
 			if (j != k) {
-				if (nGuess % 10 == nTemp / j % 10) {
+				if (nCode % 10 == nTemp / j % 10 && nTempCode / j % 10 != nGuess / j % 10) {
 					nMatches++;
 					nMatched = 1;
 					nTemp	-= nTemp / j % 10 * j;
@@ -138,7 +146,7 @@ int checkCorrectDigits(int nCode, int nGuess) {
 
 		k		*= 10;
 		j		 = 1;
-		nGuess	/= 10;
+		nCode	/= 10;
 		nMatched = 0;
 	}
 
@@ -190,47 +198,128 @@ void assignColor(
 
 int getColor(
 	int num,
-	int* nColor1,
-	int* nColor2,
-	int* nColor3,
-	int* nColor4,
-	int* nColor5,
-	int* nColor6,
-	int* nColor7,
-	int* nColor8,
-	int* nColor9
+	int nColor1,
+	int nColor2,
+	int nColor3,
+	int nColor4,
+	int nColor5,
+	int nColor6,
+	int nColor7,
+	int nColor8,
+	int nColor9
 ) {
 	switch (num) {
 		case 1:
-			return *nColor1;
+			return nColor1;
 		case 2:
-			return *nColor2;
+			return nColor2;
 		case 3:
-			return *nColor3;
+			return nColor3;
 		case 4:
-			return *nColor4;
+			return nColor4;
 		case 5:
-			return *nColor5;
+			return nColor5;
 		case 6:
-			return *nColor6;
+			return nColor6;
 		case 7:
-			return *nColor7;
+			return nColor7;
 		case 8:
-			return *nColor8;
+			return nColor8;
 		case 9:
-			return *nColor9;
+			return nColor9;
 	}
+}
+
+void showColors(
+	HANDLE hConsole,
+	WORD saved_attributes,
+	int nColor1,
+	int nColor2,
+	int nColor3,
+	int nColor4,
+	int nColor5,
+	int nColor6,
+	int nColor7,
+	int nColor8,
+	int nColor9
+) {
+	int j;
+
+	for (j = 1; j <= 9; j++) {
+		SetConsoleTextAttribute(hConsole, getColor(
+			j,
+			nColor1,
+			nColor2,
+			nColor3,
+			nColor4,
+			nColor5,
+			nColor6,
+			nColor7,
+			nColor8,
+			nColor9
+		));
+		printf(" ");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+		printf(" ");
+	}
+
+	printf("\n");
+}
+
+void convertToColors(
+	int nNum,
+	HANDLE hConsole,
+	WORD saved_attributes,
+	int nColor1,
+	int nColor2,
+	int nColor3,
+	int nColor4,
+	int nColor5,
+	int nColor6,
+	int nColor7,
+	int nColor8,
+	int nColor9
+) {
+	int nLength = 0;
+	int nTemp = nNum;
+	while (nTemp != 0) {
+		nTemp /= 10;
+		nLength++;
+	}
+
+	nLength--;
+
+	while (nLength >= 0) {
+		SetConsoleTextAttribute(hConsole, getColor(
+			nNum / (int)pow(10, nLength) % 10,
+			nColor1,
+			nColor2,
+			nColor3,
+			nColor4,
+			nColor5,
+			nColor6,
+			nColor7,
+			nColor8,
+			nColor9
+		));
+		printf(" ");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+		printf(" ");
+		nLength--;
+	}
+	printf("\n");
 }
 
 int main() {
 	int nChoice;
+	int nCode;
 	int nGuesses	= 10;
 	int nPlayers	= 2;
 	int nMenu		= 0;
 	int nMatch		= 0;
 	int nCorrect	= 0;
 	long int nAmount= 0;
-	int j;
+	int j, k, l;
 
 	int nColor1 = RED;
 	int nColor2 = GREEN;
@@ -267,7 +356,112 @@ int main() {
 
 		// game
 		else if (nMenu == GAME) {
+			nCode = generateRandomCode();
 
+			printf("Enter 0 in order to reveal the sequence\n");
+			printf("Black - Exact color and position, White - Exact color wrong position\n\n");
+
+			for (j = 0; j < nGuesses; j++) {
+				for (k = 1; k <= nPlayers; k++) {
+					printf("Choices: ");
+					showColors(
+						hConsole,
+						saved_attributes,
+						nColor1,
+						nColor2,
+						nColor3,
+						nColor4,
+						nColor5,
+						nColor6,
+						nColor7,
+						nColor8,
+						nColor9
+					);
+					printf("It's player %d's turn:\n", k);
+					printf("Enter your guess: ");
+					while (!getInputInRange(&nChoice, 1000, 9999) || hasZeros(nChoice)) {
+						if (nChoice == 0) {
+							printf("\nThe secret has been revealed to you\n");
+							convertToColors(
+								nCode,
+								hConsole,
+								saved_attributes,
+								nColor1,
+								nColor2,
+								nColor3,
+								nColor4,
+								nColor5,
+								nColor6,
+								nColor7,
+								nColor8,
+								nColor9
+							);
+							printf("Enter your guess: ");
+						} else {
+							printf("\nInvalid Input. Try Again: ");
+						}
+					}
+
+					printf("Guess: ");
+
+					convertToColors(
+						nChoice,
+						hConsole,
+						saved_attributes,
+						nColor1,
+						nColor2,
+						nColor3,
+						nColor4,
+						nColor5,
+						nColor6,
+						nColor7,
+						nColor8,
+						nColor9
+					);
+
+					printf("\n");
+
+					nMatch	= checkExactMatches(nCode, nChoice);
+					nCorrect= checkCorrectDigits(nCode, nChoice);
+					for (l = 0; l < nMatch; l++) {
+						SetConsoleTextAttribute(hConsole, 0);
+						printf(" ");
+						SetConsoleTextAttribute(hConsole, saved_attributes);
+						printf(" ");
+					}
+
+					for (l = 0; l < nCorrect; l++) {
+						SetConsoleTextAttribute(hConsole, WHITE);
+						printf(" ");
+						SetConsoleTextAttribute(hConsole, saved_attributes);
+						printf(" ");
+					}
+
+					printf("\n\n");
+
+					if (nMatch == 4) {
+						j = nGuesses + 1;
+
+						printf("Player %d won!!\n");
+						k = nPlayers;
+					}
+				}
+			}
+
+			if (j == nGuesses) {
+				printf("Game Over\n");
+			}
+
+			printf("Would you like to try again?\n");
+			printf("1 - Back to Menu\n");
+			printf("2 - Try Again\n");
+			printf("Enter number: ");
+			while (!getInputInRange(&nChoice, 1, 2)) {
+				printf("\nInvalid Input. Try Again: ");
+			}
+
+			clrscr();
+			nMenu = nChoice - 1;
 		}
 
 		// settings
