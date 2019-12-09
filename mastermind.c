@@ -448,7 +448,7 @@ int main() {
 					if (nMatch == 4) {
 						j = nGuesses + 1;
 
-						printf("Player %d won!!\n");
+						printf("Player %d won!!\n", k);
 						k = nPlayers;
 					}
 				}
